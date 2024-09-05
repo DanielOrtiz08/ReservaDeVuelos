@@ -21,6 +21,12 @@ public class Pasajero {
     @Column(nullable = false)
     private String apellido;
 
+    @Column(unique = true, nullable = false)
+    private String documentoIdentificacion;
+
+    @Column(nullable = false)
+    private String nacionalidad;
+
     @Column(nullable = false)
     private String direccion;
 
