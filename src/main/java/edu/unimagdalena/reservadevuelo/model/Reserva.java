@@ -20,7 +20,7 @@ import java.util.Set;
 @Table(name = "reservas")
 public class Reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "fecha_reserva", nullable = false)

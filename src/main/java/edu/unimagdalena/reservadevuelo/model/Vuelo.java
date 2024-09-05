@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
@@ -21,7 +22,7 @@ import java.util.Set;
 @Table(name = "vuelos")
 public class Vuelo {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -37,7 +38,7 @@ public class Vuelo {
     private LocalTime horaSalida;
 
     @Column(nullable = false)
-    private LocalTime duracion;
+    private Duration duracion;
 
     @Column(nullable = false)
     private int capacidad;

@@ -17,7 +17,7 @@ import lombok.ToString;
 @Table(name = "pasajeros")
 public class Pasajero {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)

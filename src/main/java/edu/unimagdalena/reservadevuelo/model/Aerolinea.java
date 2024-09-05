@@ -19,18 +19,18 @@ import java.util.List;
 @Table(name = "aerolineas")
 public class Aerolinea {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
     private String nombre;
 
     @Column(name = "codigo_aerolinea", unique = true,  nullable = false)
-    private long codigoAerolinea;
+    private String codigoAerolinea;
 
     @Column(name = "pais_origen", nullable = false)
     private String paisOrigen;
 
     @OneToMany(mappedBy = "aerolinea", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Vuelo> Vuelos;
+    private List<Vuelo> vuelos;
 }
