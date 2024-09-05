@@ -1,7 +1,14 @@
 package edu.unimagdalena.reservadevuelo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +30,7 @@ public class Aeropuerto {
 
     @Column(nullable = false)
     private String pais;
+
+    @OneToMany(mappedBy = "aeropuerto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Vuelo> vuelos;
 }

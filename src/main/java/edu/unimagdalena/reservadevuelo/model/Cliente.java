@@ -1,7 +1,14 @@
 package edu.unimagdalena.reservadevuelo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -29,4 +36,7 @@ public class Cliente {
 
     @Column(name = "correo_electronico", nullable = false)
     private String correoElectronico;
+
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Reserva> reservas;
 }

@@ -1,10 +1,16 @@
 package edu.unimagdalena.reservadevuelo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -35,4 +41,15 @@ public class Vuelo {
 
     @Column(nullable = false)
     private int capacidad;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aeropuerto_id")
+    private Aeropuerto aeropuerto;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aerolinea_id")
+    private Aerolinea aerolinea;
+
+    @ManyToMany(mappedBy = "vuelos")
+    private Set<Reserva> reservas;
 }

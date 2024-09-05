@@ -1,7 +1,12 @@
 package edu.unimagdalena.reservadevuelo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -35,4 +40,8 @@ public class Pasajero {
 
     @Column(name = "correo_electronico", nullable = false)
     private String correoElectronico;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reserva_id")
+    private Reserva reserva;
 }

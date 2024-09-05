@@ -1,9 +1,15 @@
 package edu.unimagdalena.reservadevuelo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,4 +28,19 @@ public class Reserva {
 
     @Column(name = "numero_pasajero", nullable = false)
     private int numeroPasajero;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Pasajero> pasajeros;
+
+    @ManyToMany
+    @JoinTable(
+            name = "rutas",
+            joinColumns = @JoinColumn(name = "reserva_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "vuelo_id", referencedColumnName = "id")
+    )
+    private Set<Vuelo> vuelos;
 }

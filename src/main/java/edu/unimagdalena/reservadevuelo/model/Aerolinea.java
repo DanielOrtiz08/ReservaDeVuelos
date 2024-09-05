@@ -1,7 +1,14 @@
 package edu.unimagdalena.reservadevuelo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -10,7 +17,7 @@ import lombok.*;
 @ToString
 @Entity
 @Table(name = "aerolineas")
-public class Aeorilinea {
+public class Aerolinea {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -23,4 +30,7 @@ public class Aeorilinea {
 
     @Column(name = "pais_origen", nullable = false)
     private String paisOrigen;
+
+    @OneToMany(mappedBy = "aerolinea", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Vuelo> Vuelos;
 }
