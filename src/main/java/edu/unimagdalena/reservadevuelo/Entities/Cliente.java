@@ -1,4 +1,4 @@
-package edu.unimagdalena.reservadevuelo.model;
+package edu.unimagdalena.reservadevuelo.Entities;
 
 import jakarta.persistence.*;
 
@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "aeropuertos")
-public class Aeropuerto {
+@Table(name = "clientes")
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -26,11 +26,17 @@ public class Aeropuerto {
     private String nombre;
 
     @Column(nullable = false)
-    private String ciudad;
+    private String apellido;
 
     @Column(nullable = false)
-    private String pais;
+    private String direccion;
 
-    @OneToMany(mappedBy = "aeropuerto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Vuelo> vuelos;
+    @Column(nullable = false)
+    private String telefono;
+
+    @Column(name = "correo_electronico", nullable = false)
+    private String correoElectronico;
+
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reserva> reservas;
 }
