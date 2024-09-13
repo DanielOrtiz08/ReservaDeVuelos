@@ -37,6 +37,9 @@ public class Cliente {
     @Column(name = "correo_electronico", nullable = false)
     private String correoElectronico;
 
+    @Column(name = "fecha_nacimiento", nullable = false)
+    private String fechaNacimiento;
+
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reserva> reservas;
 }

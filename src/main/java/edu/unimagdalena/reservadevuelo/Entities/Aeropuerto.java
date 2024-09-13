@@ -31,6 +31,9 @@ public class Aeropuerto {
     @Column(nullable = false)
     private String pais;
 
+    @Column(name = "codigo_IATA", nullable = false, unique = true)
+    private String codigoIATA;
+
     @OneToMany(mappedBy = "aeropuerto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Vuelo> vuelos;
 }

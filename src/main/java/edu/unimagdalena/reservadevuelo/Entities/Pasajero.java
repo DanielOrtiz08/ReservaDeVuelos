@@ -41,6 +41,9 @@ public class Pasajero {
     @Column(name = "correo_electronico", nullable = false)
     private String correoElectronico;
 
+    @Column(name = "fecha_nacimiento", nullable = false)
+    private String fechaNacimiento;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reserva_id")
     private Reserva reserva;
