@@ -11,4 +11,5 @@ public interface AerolineaService {
     List<Aerolinea> buscarAerolineas();
     List<Aerolinea> buscarAerolineasPorNombre(String nombre);
     Optional<Aerolinea> actualizarAerolinea(Long id, Aerolinea aerolinea);
+    void eliminarAerolinea(Long id);
 }

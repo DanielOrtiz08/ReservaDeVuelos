@@ -12,5 +12,6 @@ public interface AeropuertoService {
     List<Aeropuerto> buscarAeropuertosPorNombre(String nombre);
     List<Aeropuerto> buscarAeropuertosPorCodigoIATA(String codigoIATA);
     Optional<Aeropuerto> actualizarAeropuerto(Long id, Aeropuerto aeropuerto);
+    void eliminarAeropuerto(Long id);
 }
 

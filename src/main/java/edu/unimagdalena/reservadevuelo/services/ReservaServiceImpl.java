@@ -57,4 +57,9 @@ public class ReservaServiceImpl implements ReservaService {
             return reservaRepository.save(oldReserva);
         });
     }
+
+    @Override
+    public void eliminarReserva(Long id) {
+        reservaRepository.deleteById(id);
+    }
 }
