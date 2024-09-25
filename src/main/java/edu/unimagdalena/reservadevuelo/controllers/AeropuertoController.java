@@ -45,4 +45,10 @@ public class AeropuertoController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAeropuerto(@PathVariable Long id){
+        aeropuertoService.eliminarAeropuerto(id);
+        return ResponseEntity.noContent().build();
+    }
 }

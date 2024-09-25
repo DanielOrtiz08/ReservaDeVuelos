@@ -49,4 +49,10 @@ public class ReservaController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReserva(@PathVariable Long id){
+        reservaService.eliminarReserva(id);
+        return ResponseEntity.noContent().build();
+    }
 }

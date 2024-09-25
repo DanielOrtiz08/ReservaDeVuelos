@@ -3,9 +3,7 @@ package edu.unimagdalena.reservadevuelo.controllers;
 import edu.unimagdalena.reservadevuelo.Entities.Vuelo;
 import edu.unimagdalena.reservadevuelo.services.VueloService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,21 @@ public class VueloController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PostMapping
+    public ResponseEntity<Vuelo> createVuelo(Vuelo vuelo) {
+        return ResponseEntity.ok(vueloService.guardarVuelo(vuelo));
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Vuelo> updateVuelo(Long id, Vuelo vuelo) {
+        return vueloService.buscarVueloPorId(id)
+                .map(v -> ResponseEntity.ok(vueloService.guardarVuelo(vuelo)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteVuelo(Long id) {
+        vueloService.eliminarVuelo(id);
+        return ResponseEntity.noContent().build();
+    }
 }
