@@ -12,4 +12,5 @@ public interface PasajeroService {
     List<Pasajero> buscarPasajerosPorNombre(String nombre);
     Optional<Pasajero> buscarPorDocumentoIdentificacion(String documentoIdentificacion);
     Optional<Pasajero> actualizarPasajero(Long id, Pasajero pasajero);
+    void eliminarPasajero(Long id);
 }

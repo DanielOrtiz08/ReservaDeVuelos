@@ -14,4 +14,5 @@ public interface ReservaService {
     List<Reserva> buscarReservasPorVuelo(Long vueloId);
     Reserva agregarVueloReserva(Long reservaId, Vuelo vuelo);
     Optional<Reserva> actualizarReserva(Long id, Reserva reserva);
+    void eliminarReserva(Long id);
 }

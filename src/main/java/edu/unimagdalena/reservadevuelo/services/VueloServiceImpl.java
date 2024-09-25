@@ -71,4 +71,9 @@ public class VueloServiceImpl implements VueloService {
             return vueloRepository.save(vuelo);
         }).orElseThrow(() -> new RuntimeException("Vuelo no encontrado"));
     }
+
+    @Override
+    public void eliminarVuelo(Long id) {
+        vueloRepository.deleteById(id);
+    }
 }
