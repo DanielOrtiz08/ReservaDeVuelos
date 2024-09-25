@@ -1,6 +1,7 @@
 package edu.unimagdalena.reservadevuelo.services;
 
 import edu.unimagdalena.reservadevuelo.Entities.Reserva;
+import edu.unimagdalena.reservadevuelo.Entities.Vuelo;
 import edu.unimagdalena.reservadevuelo.repositories.ReservaRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,14 @@ public class ReservaServiceImpl implements ReservaService {
     @Override
     public List<Reserva> buscarReservasPorVuelo(Long vueloId) {
         return reservaRepository.findByVuelos_Id(vueloId);
+    }
+
+    @Override
+    public Reserva agregarVueloReserva(Long reservaId, Vuelo vuelo) {
+        return reservaRepository.findById(reservaId).map(reserva -> {
+            reserva.getVuelos().add(vuelo);
+            return reservaRepository.save(reserva);
+        }).orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package edu.unimagdalena.reservadevuelo.services;
 
+import edu.unimagdalena.reservadevuelo.Entities.Reserva;
 import edu.unimagdalena.reservadevuelo.Entities.Vuelo;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface VueloService {
     List<Vuelo> buscarVuelosPorAeropuerto(Long aeropuertoId);
     List<Vuelo> buscarVuelosPorAerolinea(Long aerolineaId);
     Optional<Vuelo> actualizarVuelo(Long id, Vuelo vuelo);
+    Vuelo agregarReservaVuelo(Long vueloId, Reserva reserva);
 }
 

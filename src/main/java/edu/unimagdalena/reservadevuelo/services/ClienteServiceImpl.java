@@ -49,4 +49,9 @@ public class ClienteServiceImpl implements ClienteService {
             return clienteRepository.save(oldClient);
         });
     }
+
+    @Override
+    public void eliminarCliente(Long id) {
+        clienteRepository.deleteById(id);
+    }
 }

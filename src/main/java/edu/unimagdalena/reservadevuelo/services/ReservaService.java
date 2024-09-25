@@ -1,6 +1,7 @@
 package edu.unimagdalena.reservadevuelo.services;
 
 import edu.unimagdalena.reservadevuelo.Entities.Reserva;
+import edu.unimagdalena.reservadevuelo.Entities.Vuelo;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,5 +12,6 @@ public interface ReservaService {
     List<Reserva> buscarReservas();
     List<Reserva> buscarReservasPorCliente(Long clienteId);
     List<Reserva> buscarReservasPorVuelo(Long vueloId);
+    Reserva agregarVueloReserva(Long reservaId, Vuelo vuelo);
     Optional<Reserva> actualizarReserva(Long id, Reserva reserva);
 }
