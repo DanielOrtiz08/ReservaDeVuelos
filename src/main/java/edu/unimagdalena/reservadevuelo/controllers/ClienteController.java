@@ -1,8 +1,8 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
-import edu.unimagdalena.reservadevuelo.Entities.Cliente;
+import edu.unimagdalena.reservadevuelo.dto.ClienteDto;
+import edu.unimagdalena.reservadevuelo.entities.Cliente;
 import edu.unimagdalena.reservadevuelo.services.ClienteService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,7 +10,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @ResponseBody
@@ -42,12 +41,12 @@ public class ClienteController {
     }
 
     private ResponseEntity<Cliente> createNewCliente(Cliente cliente) {
-        Cliente newCliente = clienteService.guardarCliente(cliente);
+        clienteService.guardarCliente(cliente);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().
                 path("/{id}").
-                buildAndExpand(newCliente.getId()).
+                buildAndExpand(cliente).
                 toUri();
-        return ResponseEntity.created(location).body(newCliente);
+        return ResponseEntity.created(location).body(cliente);
     }
 
     @PutMapping("/id")
@@ -65,5 +64,4 @@ public class ClienteController {
         clienteService.eliminarCliente(id);
         return ResponseEntity.noContent().build();
     }
-
 }

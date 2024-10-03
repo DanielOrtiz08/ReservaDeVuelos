@@ -1,4 +1,4 @@
-package edu.unimagdalena.reservadevuelo.Entities;
+package edu.unimagdalena.reservadevuelo.entities;
 
 import jakarta.persistence.*;
 
@@ -8,14 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Entity
-@Table(name = "pasajeros")
-public class Pasajero {
+@Table(name = "clientes")
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -25,12 +27,6 @@ public class Pasajero {
 
     @Column(nullable = false)
     private String apellido;
-
-    @Column(unique = true, nullable = false)
-    private String documentoIdentificacion;
-
-    @Column(nullable = false)
-    private String nacionalidad;
 
     @Column(nullable = false)
     private String direccion;
@@ -44,7 +40,6 @@ public class Pasajero {
     @Column(name = "fecha_nacimiento", nullable = false)
     private String fechaNacimiento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reserva_id")
-    private Reserva reserva;
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reserva> reservas;
 }

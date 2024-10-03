@@ -1,6 +1,6 @@
 package edu.unimagdalena.reservadevuelo.services;
 
-import edu.unimagdalena.reservadevuelo.Entities.Aeropuerto;
+import edu.unimagdalena.reservadevuelo.entities.Aeropuerto;
 import edu.unimagdalena.reservadevuelo.repositories.AeropuertoRepository;
 import org.springframework.stereotype.Service;
 

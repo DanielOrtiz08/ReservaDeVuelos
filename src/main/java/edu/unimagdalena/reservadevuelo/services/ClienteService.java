@@ -1,7 +1,7 @@
 package edu.unimagdalena.reservadevuelo.services;
 
-import edu.unimagdalena.reservadevuelo.Entities.Cliente;
-import org.springframework.stereotype.Service;
+import edu.unimagdalena.reservadevuelo.dto.ClienteDto;
+import edu.unimagdalena.reservadevuelo.entities.Cliente;
 
 import java.util.List;
 import java.util.Optional;

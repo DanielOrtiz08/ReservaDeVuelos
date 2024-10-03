@@ -1,7 +1,7 @@
 package edu.unimagdalena.reservadevuelo.services;
 
-import edu.unimagdalena.reservadevuelo.Entities.Reserva;
-import edu.unimagdalena.reservadevuelo.Entities.Vuelo;
+import edu.unimagdalena.reservadevuelo.entities.Reserva;
+import edu.unimagdalena.reservadevuelo.entities.Vuelo;
 
 import java.util.List;
 import java.util.Optional;

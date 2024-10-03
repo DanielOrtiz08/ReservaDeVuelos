@@ -1,7 +1,10 @@
 package edu.unimagdalena.reservadevuelo.services;
 
-import edu.unimagdalena.reservadevuelo.Entities.Cliente;
+import edu.unimagdalena.reservadevuelo.dto.ClienteDto;
+import edu.unimagdalena.reservadevuelo.dto.ClienteMapper;
+import edu.unimagdalena.reservadevuelo.entities.Cliente;
 import edu.unimagdalena.reservadevuelo.repositories.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +14,13 @@ import java.util.Optional;
 public class ClienteServiceImpl implements ClienteService {
 
     private ClienteRepository clienteRepository;
+    private final ClienteMapper clienteMapper;
+
+    @Autowired
+    public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper) {
+        this.clienteRepository = clienteRepository;
+        this.clienteMapper = clienteMapper;
+    }
 
     @Override
     public Cliente guardarCliente(Cliente cliente) {

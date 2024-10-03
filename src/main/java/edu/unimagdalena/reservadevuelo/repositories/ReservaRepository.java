@@ -1,6 +1,6 @@
 package edu.unimagdalena.reservadevuelo.repositories;
 
-import edu.unimagdalena.reservadevuelo.Entities.Reserva;
+import edu.unimagdalena.reservadevuelo.entities.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

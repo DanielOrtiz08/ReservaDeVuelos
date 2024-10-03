@@ -1,6 +1,6 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
-import edu.unimagdalena.reservadevuelo.Entities.Pasajero;
+import edu.unimagdalena.reservadevuelo.entities.Pasajero;
 import edu.unimagdalena.reservadevuelo.services.PasajeroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package edu.unimagdalena.reservadevuelo.Entities;
+package edu.unimagdalena.reservadevuelo.entities;
 
 import jakarta.persistence.*;
 
