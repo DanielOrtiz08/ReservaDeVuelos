@@ -1,7 +1,7 @@
 package edu.unimagdalena.reservadevuelo.services;
 
 import edu.unimagdalena.reservadevuelo.dto.ClienteDto;
-import edu.unimagdalena.reservadevuelo.dto.ClienteMapper;
+import edu.unimagdalena.reservadevuelo.mappers.ClienteMapper;
 import edu.unimagdalena.reservadevuelo.entities.Cliente;
 import edu.unimagdalena.reservadevuelo.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ClienteServiceImpl implements ClienteService {
 
     private ClienteRepository clienteRepository;
-    private final ClienteMapper clienteMapper;
+    private ClienteMapper clienteMapper;
 
     @Autowired
     public ClienteServiceImpl(ClienteRepository clienteRepository, ClienteMapper clienteMapper) {
@@ -23,40 +23,48 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente guardarCliente(Cliente cliente) {
-        return clienteRepository.save(cliente);
+    public ClienteDto guardarCliente(ClienteDto clienteDto) {
+        Cliente clienteEntity = clienteMapper.clienteDtoToCliente(clienteDto); // Convertimos el DTO a entidad
+        Cliente savedCliente = clienteRepository.save(clienteEntity); // Guardamos la entidad en la base de datos
+        return clienteMapper.clienteToClienteDto(savedCliente); // Retornamos el DTO de la entidad guardada
     }
 
     @Override
-    public Optional<Cliente> buscarClientePorId(Long id) {
-        return clienteRepository.findById(id);
+    public Optional<ClienteDto> buscarClientePorId(Long id) {
+        return clienteRepository.findById(id)
+                .map(clienteMapper::clienteToClienteDto); // Mapeamos la entidad a DTO si existe
     }
 
     @Override
-    public List<Cliente> buscarClientes() {
-        return clienteRepository.findAll();
+    public List<ClienteDto> buscarClientes() {
+        List<Cliente> clientes = clienteRepository.findAll();
+        return clienteMapper.clienteToClienteDto(clientes); // Convertimos la lista de entidades a DTOs
     }
 
     @Override
-    public List<Cliente> buscarClientesPorIds(List<Long> ids) {
-        return clienteRepository.findByIdIn(ids);
+    public List<ClienteDto> buscarClientesPorIds(List<Long> ids) {
+        List<Cliente> clientes = clienteRepository.findByIdIn(ids);
+        return clienteMapper.clienteToClienteDto(clientes); // Convertimos la lista de entidades a DTOs
     }
 
     @Override
-    public List<Cliente> buscarClientesPorNombre(String nombre) {
-        return clienteRepository.findByNombre(nombre);
+    public List<ClienteDto> buscarClientesPorNombre(String nombre) {
+        List<Cliente> clientes = clienteRepository.findByNombre(nombre);
+        return clienteMapper.clienteToClienteDto(clientes); // Convertimos la lista de entidades a DTOs
     }
 
     @Override
-    public Optional<Cliente> actualizarCliente(Long id, Cliente cliente) {
-        return clienteRepository.findById(id).map(oldClient -> {
-            oldClient.setNombre(cliente.getNombre());
-            oldClient.setApellido(cliente.getApellido());
-            oldClient.setCorreoElectronico(cliente.getCorreoElectronico());
-            oldClient.setDireccion(oldClient.getDireccion());
-            oldClient.setTelefono(cliente.getTelefono());
-            oldClient.setFechaNacimiento(cliente.getFechaNacimiento());
-            return clienteRepository.save(oldClient);
+    public Optional<ClienteDto> actualizarCliente(Long id, ClienteDto clienteDto) {
+        return clienteRepository.findById(id).map(existingCliente -> {
+            Cliente clienteToUpdate = clienteMapper.clienteDtoToCliente(clienteDto); // Convertimos el DTO a entidad
+            existingCliente.setNombre(clienteToUpdate.getNombre());
+            existingCliente.setApellido(clienteToUpdate.getApellido());
+            existingCliente.setCorreoElectronico(clienteToUpdate.getCorreoElectronico());
+            existingCliente.setDireccion(clienteToUpdate.getDireccion());
+            existingCliente.setTelefono(clienteToUpdate.getTelefono());
+            existingCliente.setFechaNacimiento(clienteToUpdate.getFechaNacimiento());
+            Cliente updatedCliente = clienteRepository.save(existingCliente); // Guardamos los cambios
+            return clienteMapper.clienteToClienteDto(updatedCliente); // Retornamos el DTO actualizado
         });
     }
 

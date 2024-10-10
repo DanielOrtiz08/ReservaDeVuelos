@@ -13,6 +13,9 @@ public class VueloServiceImpl implements VueloService {
 
     private VueloRepository vueloRepository;
 
+    public VueloServiceImpl(VueloRepository vueloRepository) {
+        this.vueloRepository = vueloRepository;
+    }
 
     @Override
     public Vuelo guardarVuelo(Vuelo vuelo) {

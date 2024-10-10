@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClienteService {
-    Cliente guardarCliente(Cliente cliente);
-    Optional<Cliente> buscarClientePorId(Long id);
-    List<Cliente> buscarClientes();
-    List<Cliente> buscarClientesPorIds(List<Long> ids);
-    List<Cliente> buscarClientesPorNombre(String nombre);
-    Optional<Cliente> actualizarCliente(Long id, Cliente cliente);
+    ClienteDto guardarCliente(ClienteDto cliente);
+    Optional<ClienteDto> buscarClientePorId(Long id);
+    List<ClienteDto> buscarClientes();
+    List<ClienteDto> buscarClientesPorIds(List<Long> ids);
+    List<ClienteDto> buscarClientesPorNombre(String nombre);
+    Optional<ClienteDto> actualizarCliente(Long id, ClienteDto cliente);
     void eliminarCliente(Long id);
 }

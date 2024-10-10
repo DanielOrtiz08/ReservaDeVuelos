@@ -44,7 +44,7 @@ public class Pasajero {
     @Column(name = "fecha_nacimiento", nullable = false)
     private String fechaNacimiento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "reserva_id")
     private Reserva reserva;
 }

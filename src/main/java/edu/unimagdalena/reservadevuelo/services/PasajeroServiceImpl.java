@@ -12,6 +12,10 @@ public class PasajeroServiceImpl implements PasajeroService {
 
     private PasajeroRepository pasajeroRepository;
 
+    public PasajeroServiceImpl(PasajeroRepository pasajeroRepository) {
+        this.pasajeroRepository = pasajeroRepository;
+    }
+
     @Override
     public Pasajero guardarPasajero(Pasajero pasajero) {
         return pasajeroRepository.save(pasajero);

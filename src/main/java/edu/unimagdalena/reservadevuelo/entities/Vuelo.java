@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
 
@@ -32,7 +32,7 @@ public class Vuelo {
     private String destino;
 
     @Column(name = "fecha_salida", nullable = false)
-    private LocalDateTime fechaSalida;
+    private LocalDate fechaSalida;
 
     @Column(name = "hora_salida", nullable = false)
     private LocalTime horaSalida;

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -38,7 +39,7 @@ public class Cliente {
     private String correoElectronico;
 
     @Column(name = "fecha_nacimiento", nullable = false)
-    private String fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reserva> reservas;
