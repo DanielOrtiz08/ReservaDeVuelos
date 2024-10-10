@@ -1,5 +1,6 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
+import edu.unimagdalena.reservadevuelo.dto.AerolineaDto;
 import edu.unimagdalena.reservadevuelo.entities.Aerolinea;
 import edu.unimagdalena.reservadevuelo.services.AerolineaService;
 import org.springframework.http.ResponseEntity;
@@ -21,43 +22,50 @@ public class AerolineaController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Aerolinea>> getAllAerolineas() {
+    public ResponseEntity<List<AerolineaDto>> getAllAerolineas() {
         return ResponseEntity.ok(aerolineaService.buscarAerolineas());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Aerolinea> getAerolineaById(@PathVariable Long id) {
+    public ResponseEntity<AerolineaDto> getAerolineaById(@PathVariable Long id) {
         return aerolineaService.buscarAerolineaPorId(id)
                 .map(a -> ResponseEntity.ok().body(a))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<AerolineaDto> getAerolineaByName(@PathVariable String name) {
+        return aerolineaService.buscarAerolineasPorNombre(name)
+                .stream().map(a -> ResponseEntity.ok().body(a))
+                .findAny().orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping()
-    public ResponseEntity<Aerolinea> createAerolinea(@RequestBody Aerolinea aerolinea) throws URISyntaxException {
-        Aerolinea newAerolinea = aerolineaService.guardarAerolinea(aerolinea);
+    public ResponseEntity<AerolineaDto> createAerolinea(@RequestBody AerolineaDto aerolineaDto) throws URISyntaxException {
+        return createNewAerolinea(aerolineaDto);
+    }
+
+    public ResponseEntity<AerolineaDto> createNewAerolinea(AerolineaDto aerolineaDto){
+        AerolineaDto newAerolinea = aerolineaService.guardarAerolinea(aerolineaDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newAerolinea.getId())
+                .buildAndExpand(newAerolinea.id())
                 .toUri();
         return ResponseEntity.created(location).body(newAerolinea);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Aerolinea> updateAerolinea(@PathVariable Long id, @RequestBody Aerolinea aerolinea) {
-        Optional<Aerolinea> updatedAerolinea = aerolineaService.actualizarAerolinea(id, aerolinea);
+    public ResponseEntity<AerolineaDto> updateAerolinea(@PathVariable Long id, @RequestBody AerolineaDto aerolineaDto) {
+        Optional<AerolineaDto> updatedAerolinea = aerolineaService.actualizarAerolinea(id, aerolineaDto);
         return updatedAerolinea
                 .map(a -> ResponseEntity.ok(a))
                 .orElseGet(() -> {
-                    try {
-                        return createAerolinea(aerolinea);
-                    } catch (URISyntaxException e) {
-                        return ResponseEntity.badRequest().build();
-                    }
+                    return createNewAerolinea(aerolineaDto);
                 });
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteAerolinea(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAerolinea(@PathVariable Long id) {
         aerolineaService.eliminarAerolinea(id);
         return ResponseEntity.noContent().build();
     }

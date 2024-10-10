@@ -12,6 +12,10 @@ public class AeropuertoServiceImpl implements AeropuertoService {
 
     private AeropuertoRepository aeropuertoRepository;
 
+    public AeropuertoServiceImpl(AeropuertoRepository aeropuertoRepository) {
+        this.aeropuertoRepository = aeropuertoRepository;
+    }
+
     @Override
     public Aeropuerto guardarAeropuerto(Aeropuerto aeropuerto) {
         return aeropuertoRepository.save(aeropuerto);

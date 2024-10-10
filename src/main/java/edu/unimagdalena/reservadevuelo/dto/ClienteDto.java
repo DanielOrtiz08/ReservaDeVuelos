@@ -1,9 +1,12 @@
 package edu.unimagdalena.reservadevuelo.dto;
 
-public record ClienteDto(String nombre,
+import java.time.LocalDate;
+
+public record ClienteDto(Long id,
+                         String nombre,
                          String apellido,
                          String direccion,
                          String telefono,
-                         String email,
-                         String fechaNacimiento) {
+                         String correoElectronico,
+                         LocalDate fechaNacimiento) {
 }
