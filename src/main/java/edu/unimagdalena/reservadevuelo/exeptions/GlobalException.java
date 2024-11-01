@@ -12,9 +12,32 @@ import java.time.LocalDateTime;
 public class GlobalException{
     @ExceptionHandler(value = ResourceNotFoundException.class)
     public ResponseEntity<ErrorMessages> resourceNotFoundHandler(ResourceNotFoundException ex, WebRequest request) {
-        ErrorMessages errorMessages = new ErrorMessages(HttpStatus.NOT_FOUND.value(),
-                                                        ex.getMessage(),
-                                                        LocalDateTime.now());
+        ErrorMessages errorMessages = new ErrorMessages(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessages);
     }
+
+    @ExceptionHandler(value = ValidationException.class)
+    public ResponseEntity<ErrorMessages> validationExceptionHandler(ValidationException ex, WebRequest request) {
+        ErrorMessages errorMessages = new ErrorMessages(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessages);
+    }
+
+    @ExceptionHandler(value = DuplicateResourceException.class)
+    public ResponseEntity<ErrorMessages> duplicateResourceExceptionHandler(DuplicateResourceException ex, WebRequest request) {
+        ErrorMessages errorMessages = new ErrorMessages(
+                HttpStatus.CONFLICT.value(),
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorMessages);
+    }
+
 }

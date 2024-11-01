@@ -1,9 +1,9 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
-import edu.unimagdalena.reservadevuelo.entities.Pasajero;
-import edu.unimagdalena.reservadevuelo.services.PasajeroService;
-import edu.unimagdalena.reservadevuelo.services.ReservaService;
-import edu.unimagdalena.reservadevuelo.services.ReservaServiceImpl;
+import edu.unimagdalena.reservadevuelo.dto.PasajeroDto;
+import edu.unimagdalena.reservadevuelo.exeptions.ResourceNotFoundException;
+import edu.unimagdalena.reservadevuelo.services.pasajero.PasajeroService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,61 +15,62 @@ import java.util.Optional;
 
 @RequestMapping("/api/v1/pasajero")
 @RestController
+@RequiredArgsConstructor
 public class PasajeroController {
     private final PasajeroService pasajeroService;
 
-    public PasajeroController(PasajeroService pasajeroService, ReservaServiceImpl reservaServiceImpl) {
-        this.pasajeroService = pasajeroService;
-    }
+    @GetMapping("")
+    public ResponseEntity<List<PasajeroDto>> getAllPasajeros(){
+        List<PasajeroDto> pasajeros = pasajeroService.buscarPasajeros();
+        if (pasajeros.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontraron pasajeros registrados.");
+        }
+        return ResponseEntity.ok(pasajeros);    }
 
-    @GetMapping
-    public ResponseEntity<List<Pasajero>> allPasajeros(){
-        return ResponseEntity.ok(pasajeroService.buscarPasajeros());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Pasajero> pasajeroById(@PathVariable Long id){
+    @GetMapping("/id/{id}")
+    public ResponseEntity<PasajeroDto> getPasajeroById(@PathVariable Long id){
         return pasajeroService.buscarPasajeroPorId(id)
-                .map(p -> ResponseEntity.ok().body(p))
-                .orElse(ResponseEntity.notFound().build());
+                .map(pasajeroDto -> ResponseEntity.ok().body(pasajeroDto))
+                .orElseThrow(() -> new ResourceNotFoundException("Pasajero con ID " + id + " no encontrado."));
     }
 
-    @GetMapping("/search/{nombre}")
-    public ResponseEntity<List<Pasajero>> pasajeroByNombre(@PathVariable String nombre){
-        return ResponseEntity.ok(pasajeroService.buscarPasajerosPorNombre(nombre));
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<PasajeroDto>> getPasajeroByNombre(@PathVariable String name){
+        List<PasajeroDto> pasajerosDto = pasajeroService.buscarPasajerosPorNombre(name);
+        if (pasajerosDto.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontraron pasajeros con el nombre: " + name);
+        }
+        return ResponseEntity.ok(pasajerosDto);
     }
 
-    @PostMapping()
-    public ResponseEntity<Pasajero> createPasajero(@RequestBody Pasajero pasajero) throws URISyntaxException {
-        return createNewPasajero(pasajero);
+    @PostMapping("")
+    public ResponseEntity<PasajeroDto> createPasajero(@RequestBody PasajeroDto pasajeroDto) throws URISyntaxException {
+        return createNewPasajero(pasajeroDto);
     }
 
-    private ResponseEntity<Pasajero> createNewPasajero(Pasajero pasajero){
-        Pasajero newPasajero = pasajeroService.guardarPasajero(pasajero);
+    private ResponseEntity<PasajeroDto> createNewPasajero(PasajeroDto pasajeroDto){
+        PasajeroDto newPasajero = pasajeroService.guardarPasajero(pasajeroDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newPasajero.getId())
+                .buildAndExpand(newPasajero.id())
                 .toUri();
         return ResponseEntity.created(location).body(newPasajero);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Pasajero> updatePasajero(@PathVariable Long id, @RequestBody Pasajero pasajero){
-        Optional<Pasajero> pasajeroUpdate = pasajeroService.buscarPasajeroPorId(id);
-        return pasajeroUpdate
+    @PutMapping("/id/{id}")
+    public ResponseEntity<PasajeroDto> updatePasajero(@PathVariable Long id, @RequestBody PasajeroDto pasajeroDto){
+        Optional<PasajeroDto> pasajeroUpdated = pasajeroService.actualizarPasajero(id, pasajeroDto);
+        return pasajeroUpdated
                 .map(p -> ResponseEntity.ok(p))
-                .orElseGet(() -> {
-                    return createNewPasajero(pasajero);
-                });
+                .orElseThrow(() -> new ResourceNotFoundException("Pasajero con ID " + id + " no encontrado para actualizar."));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Pasajero> deletePasajero(@PathVariable Long id){
-        return pasajeroService.buscarPasajeroPorId(id)
-                .map(p -> {
-                    pasajeroService.eliminarPasajero(id);
-                    return ResponseEntity.ok().body(p);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<PasajeroDto> deletePasajero(@PathVariable Long id){
+        if (!pasajeroService.existePasajeroPorId(id)) {
+            throw new ResourceNotFoundException("Pasajero con ID " + id + " no encontrado para eliminar.");
+        }
+        pasajeroService.eliminarPasajero(id);
+        return ResponseEntity.noContent().build();
     }
 }

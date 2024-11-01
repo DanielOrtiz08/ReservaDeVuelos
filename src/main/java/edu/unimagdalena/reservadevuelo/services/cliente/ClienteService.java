@@ -1,17 +1,18 @@
-package edu.unimagdalena.reservadevuelo.services;
+package edu.unimagdalena.reservadevuelo.services.cliente;
 
 import edu.unimagdalena.reservadevuelo.dto.ClienteDto;
-import edu.unimagdalena.reservadevuelo.entities.Cliente;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ClienteService {
-    ClienteDto guardarCliente(ClienteDto cliente);
+    ClienteDto guardarCliente(ClienteDto clienteDto);
     Optional<ClienteDto> buscarClientePorId(Long id);
     List<ClienteDto> buscarClientes();
     List<ClienteDto> buscarClientesPorIds(List<Long> ids);
     List<ClienteDto> buscarClientesPorNombre(String nombre);
-    Optional<ClienteDto> actualizarCliente(Long id, ClienteDto cliente);
+    Optional<ClienteDto> actualizarCliente(Long id, ClienteDto clienteDto);
     void eliminarCliente(Long id);
+    boolean existeClienteConCorreoElectronico(String correoElectronico);
+    boolean existeClientePorId(Long id);
 }

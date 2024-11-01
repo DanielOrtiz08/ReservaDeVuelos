@@ -14,4 +14,5 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     List<Cliente> findByNombre(String nombre);
     //@Query("SELECT c FROM Cliente c WHERE c.id IN ?1")
     List<Cliente> findByIdIn(Collection<Long> ids);
+    boolean existsByCorreoElectronico(String correoElectronico);
 }

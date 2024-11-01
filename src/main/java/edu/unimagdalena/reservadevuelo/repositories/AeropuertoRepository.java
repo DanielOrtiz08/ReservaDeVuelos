@@ -5,9 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AeropuertoRepository extends JpaRepository<Aeropuerto, Long> {
     List<Aeropuerto> findByNombre(String nombre);
-    List<Aeropuerto> findByCodigoIATA(String codigoIATA);
+    Optional<Aeropuerto> findByCodigoIATA(String codigoIATA);
 }

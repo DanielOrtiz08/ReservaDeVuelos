@@ -1,7 +1,8 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
-import edu.unimagdalena.reservadevuelo.entities.Vuelo;
-import edu.unimagdalena.reservadevuelo.services.VueloService;
+import edu.unimagdalena.reservadevuelo.dto.VueloDto;
+import edu.unimagdalena.reservadevuelo.exeptions.ResourceNotFoundException;
+import edu.unimagdalena.reservadevuelo.services.vuelo.VueloService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,44 +21,51 @@ public class VueloController {
         this.vueloService = vueloService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Vuelo>> getAllVuelos() {
-        return ResponseEntity.ok(vueloService.buscarVuelos());
-    }
+    @GetMapping("")
+    public ResponseEntity<List<VueloDto>> getAllVuelos() {
+        List<VueloDto> vuelos = vueloService.buscarVuelos();
+        if (vuelos.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontraron vuelos registrados.");
+        }
+        return ResponseEntity.ok(vuelos);    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Vuelo> getVueloById(@PathVariable Long id) {
+    @GetMapping("/id/{id}")
+    public ResponseEntity<VueloDto> getVueloById(@PathVariable Long id) {
         return vueloService.buscarVueloPorId(id)
                 .map(v -> ResponseEntity.ok().body(v))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new ResourceNotFoundException("Vuelo con ID " + id + " no encontrado."));
     }
 
-    @PostMapping()
-    public ResponseEntity<Vuelo> createVuelo(@RequestBody Vuelo vuelo) throws URISyntaxException {
-        return createNewVuelo(vuelo);
+    @PostMapping("")
+    public ResponseEntity<VueloDto> createVuelo(@RequestBody VueloDto vueloDto) throws URISyntaxException {
+        return createNewVuelo(vueloDto);
     }
 
-    private ResponseEntity<Vuelo> createNewVuelo(Vuelo vuelo) {
-        Vuelo newVuelo = vueloService.guardarVuelo(vuelo);
+    private ResponseEntity<VueloDto> createNewVuelo(VueloDto vueloDto) {
+        VueloDto newVuelo = vueloService.guardarVuelo(vueloDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newVuelo.getId())
+                .buildAndExpand(newVuelo.id())
                 .toUri();
         return ResponseEntity.created(location).body(newVuelo);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Vuelo> updateVuelo(@PathVariable Long id, @RequestBody Vuelo vuelo) {
-        Optional<Vuelo> vueloUdapte = vueloService.actualizarVuelo(id, vuelo);
-        return vueloUdapte
-                .map(v -> ResponseEntity.ok(v))
-                .orElseGet(() -> {
-                    return createNewVuelo(vuelo);
-                });
+    @PutMapping("/id/{id}")
+    public ResponseEntity<VueloDto> updateVuelo(@PathVariable Long id, @RequestBody VueloDto vueloDto) {
+        Optional<VueloDto> vueloUpdated = vueloService.buscarVueloPorId(id);
+        if (vueloUpdated.isEmpty()) {
+            throw new ResourceNotFoundException("Vuelo con ID " + id + " no encontrado para actualizar.");
+        }
+        VueloDto updatedVuelo = vueloService.actualizarVuelo(id, vueloDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Error actualizando el vuelo con ID " + id));
+        return ResponseEntity.ok(updatedVuelo);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public ResponseEntity<Void> deleteVuelo(@PathVariable Long id) {
+        if (!vueloService.existeVueloPorId(id)) {
+            throw new ResourceNotFoundException("Vuelo con ID " + id + " no encontrado para eliminar.");
+        }
         vueloService.eliminarVuelo(id);
         return ResponseEntity.noContent().build();
     }

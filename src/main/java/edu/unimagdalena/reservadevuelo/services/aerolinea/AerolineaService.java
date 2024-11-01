@@ -1,7 +1,6 @@
-package edu.unimagdalena.reservadevuelo.services;
+package edu.unimagdalena.reservadevuelo.services.aerolinea;
 
 import edu.unimagdalena.reservadevuelo.dto.AerolineaDto;
-import edu.unimagdalena.reservadevuelo.entities.Aerolinea;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,4 +12,5 @@ public interface AerolineaService {
     List<AerolineaDto> buscarAerolineasPorNombre(String nombre);
     Optional<AerolineaDto> actualizarAerolinea(Long id, AerolineaDto aerolineaDto);
     void eliminarAerolinea(Long id);
+    boolean existeAerolineaPorId(Long id);
 }
