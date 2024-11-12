@@ -15,18 +15,9 @@ public interface AeropuertoMapper {
 
     AeropuertoMapper INSTANCE = Mappers.getMapper(AeropuertoMapper.class);
 
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "nombre", source = "nombre"),
-            @Mapping(target = "ciudad", source = "ciudad"),
-            @Mapping(target = "pais", source = "pais"),
-            @Mapping(target = "codigoIATA", source = "codigoIATA")
-    })
     Aeropuerto aeropuertoDtoToAeropuerto(AeropuertoDto aeropuertoDto);
-    @InheritInverseConfiguration
     AeropuertoDto aeropuertoToAeropuertoDto(Aeropuerto aeropuerto);
 
     List<AeropuertoDto> aeropuertoToAeropuertoDto(List<Aeropuerto> aeropuertos);
 
-    List<Aeropuerto> aeropuertoDtoToAeropuerto(List<AeropuertoDto> aeropuertosDto);
 }

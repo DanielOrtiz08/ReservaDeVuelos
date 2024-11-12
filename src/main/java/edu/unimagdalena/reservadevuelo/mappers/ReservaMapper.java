@@ -15,11 +15,6 @@ public interface ReservaMapper {
 
     ReservaMapper INSTANCE = Mappers.getMapper(ReservaMapper.class);
 
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "fechaReserva", source = "fechaReserva"),
-            @Mapping(target = "numeroPasajero", source = "numeroPasajero")
-    })
     Reserva reservaDtoToReserva(ReservaDto reservaDto);
     @InheritInverseConfiguration
     ReservaDto reservaToReservaDto(Reserva reserva);

@@ -15,15 +15,6 @@ public interface VueloMapper {
 
     VueloMapper INSTANCE = Mappers.getMapper(VueloMapper.class);
 
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "origen", source = "origen"),
-            @Mapping(target = "destino", source = "destino"),
-            @Mapping(target = "fechaSalida", source = "fechaSalida"),
-            @Mapping(target = "horaSalida", source = "horaSalida"),
-            @Mapping(target = "duracion", source = "duracion"),
-            @Mapping(target = "capacidad", source = "capacidad")
-    })
     VueloDto vueloToVueloDto(Vuelo vuelo);
     @InheritInverseConfiguration
     Vuelo vueloDtoToVuelo(VueloDto vueloDto);

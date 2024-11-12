@@ -15,17 +15,6 @@ public interface PasajeroMapper {
 
     PasajeroMapper INSTANCE = Mappers.getMapper(PasajeroMapper.class);
 
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "nombre", source = "nombre"),
-            @Mapping(target = "apellido", source = "apellido"),
-            @Mapping(target = "documentoIdentificacion", source = "documentoIdentificacion"),
-            @Mapping(target = "nacionalidad", source = "nacionalidad"),
-            @Mapping(target = "direccion", source = "direccion"),
-            @Mapping(target = "telefono", source = "telefono"),
-            @Mapping(target = "correoElectronico", source = "correoElectronico"),
-            @Mapping(target = "fechaNacimiento", source = "fechaNacimiento")
-    })
     Pasajero pasajeroDtoToPasajero(PasajeroDto pasajeroDto);
     @InheritInverseConfiguration
     PasajeroDto pasajeroToPasajeroDto(Pasajero pasajero);

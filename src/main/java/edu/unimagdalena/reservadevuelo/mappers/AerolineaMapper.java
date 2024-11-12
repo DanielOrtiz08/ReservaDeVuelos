@@ -15,12 +15,6 @@ public interface AerolineaMapper {
 
     AerolineaMapper INSTANCE = Mappers.getMapper(AerolineaMapper.class);
 
-    @Mappings({
-            @Mapping(target = "id", source = "id"),
-            @Mapping(target = "nombre", source = "nombre"),
-            @Mapping(target = "codigoAerolinea", source = "codigoAerolinea"),
-            @Mapping(target = "paisOrigen", source = "paisOrigen")
-    })
     Aerolinea aerolineaDtoToAerolinea(AerolineaDto aerolineaDto);
     @InheritInverseConfiguration
     AerolineaDto aerolineaToAerolineaDto(Aerolinea aerolinea);
