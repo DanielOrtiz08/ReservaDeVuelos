@@ -1,4 +1,4 @@
-package edu.unimagdalena.reservadevuelo.services;
+package edu.unimagdalena.reservadevuelo.services.vuelo;
 
 import edu.unimagdalena.reservadevuelo.entities.Reserva;
 import edu.unimagdalena.reservadevuelo.entities.Vuelo;

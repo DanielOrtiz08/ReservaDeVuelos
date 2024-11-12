@@ -1,9 +1,9 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
 import edu.unimagdalena.reservadevuelo.dto.ClienteDto;
-import edu.unimagdalena.reservadevuelo.entities.Cliente;
 import edu.unimagdalena.reservadevuelo.exeptions.ClientNotFoundException;
-import edu.unimagdalena.reservadevuelo.services.ClienteService;
+import edu.unimagdalena.reservadevuelo.services.cliente.ClienteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,12 +15,9 @@ import java.util.Optional;
 
 @RequestMapping("/api/v1/clientes")
 @RestController
+@RequiredArgsConstructor
 public class ClienteController {
     private final ClienteService clienteService;
-
-    public ClienteController(ClienteService clienteService) {
-        this.clienteService = clienteService;
-    }
 
     @GetMapping
     public ResponseEntity<List<ClienteDto>> getAllClientes() {

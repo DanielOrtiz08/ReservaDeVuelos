@@ -1,9 +1,7 @@
-package edu.unimagdalena.reservadevuelo.services;
+package edu.unimagdalena.reservadevuelo.services.reserva;
 
 import edu.unimagdalena.reservadevuelo.dto.ReservaDto;
 import edu.unimagdalena.reservadevuelo.dto.VueloDto;
-import edu.unimagdalena.reservadevuelo.entities.Reserva;
-import edu.unimagdalena.reservadevuelo.entities.Vuelo;
 
 import java.util.List;
 import java.util.Optional;

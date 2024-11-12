@@ -1,4 +1,4 @@
-package edu.unimagdalena.reservadevuelo.services;
+package edu.unimagdalena.reservadevuelo.services.cliente;
 
 import edu.unimagdalena.reservadevuelo.dto.ClienteDto;
 import edu.unimagdalena.reservadevuelo.mappers.ClienteMapper;

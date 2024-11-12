@@ -1,9 +1,9 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
 import edu.unimagdalena.reservadevuelo.entities.Pasajero;
-import edu.unimagdalena.reservadevuelo.services.PasajeroService;
-import edu.unimagdalena.reservadevuelo.services.ReservaService;
-import edu.unimagdalena.reservadevuelo.services.ReservaServiceImpl;
+import edu.unimagdalena.reservadevuelo.services.pasajero.PasajeroService;
+import edu.unimagdalena.reservadevuelo.services.reserva.ReservaServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,12 +15,9 @@ import java.util.Optional;
 
 @RequestMapping("/api/v1/pasajero")
 @RestController
+@RequiredArgsConstructor
 public class PasajeroController {
     private final PasajeroService pasajeroService;
-
-    public PasajeroController(PasajeroService pasajeroService, ReservaServiceImpl reservaServiceImpl) {
-        this.pasajeroService = pasajeroService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Pasajero>> allPasajeros(){

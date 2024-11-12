@@ -1,8 +1,8 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
 import edu.unimagdalena.reservadevuelo.dto.ReservaDto;
-import edu.unimagdalena.reservadevuelo.entities.Reserva;
-import edu.unimagdalena.reservadevuelo.services.ReservaService;
+import edu.unimagdalena.reservadevuelo.services.reserva.ReservaService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,12 +14,9 @@ import java.util.Optional;
 
 @RequestMapping("/api/v1/reserva")
 @RestController
+@RequiredArgsConstructor
 public class ReservaController {
     private final ReservaService reservaService;
-
-    public ReservaController(ReservaService reservaService) {
-        this.reservaService = reservaService;
-    }
 
     @GetMapping
     public ResponseEntity<List<ReservaDto>> getAllReservas(){

@@ -1,7 +1,8 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
 import edu.unimagdalena.reservadevuelo.entities.Aeropuerto;
-import edu.unimagdalena.reservadevuelo.services.AeropuertoService;
+import edu.unimagdalena.reservadevuelo.services.aeropuerto.AeropuertoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -13,12 +14,9 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/aeropuerto")
+@RequiredArgsConstructor
 public class AeropuertoController {
-    private AeropuertoService aeropuertoService;
-
-    public AeropuertoController(AeropuertoService aeropuertoService){
-        this.aeropuertoService = aeropuertoService;
-    }
+    private final AeropuertoService aeropuertoService;
 
     @GetMapping
     public ResponseEntity<List<Aeropuerto>> getAllAeropuertos(){

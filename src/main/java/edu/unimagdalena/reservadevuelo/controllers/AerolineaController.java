@@ -1,8 +1,7 @@
 package edu.unimagdalena.reservadevuelo.controllers;
 
 import edu.unimagdalena.reservadevuelo.dto.AerolineaDto;
-import edu.unimagdalena.reservadevuelo.entities.Aerolinea;
-import edu.unimagdalena.reservadevuelo.services.AerolineaService;
+import edu.unimagdalena.reservadevuelo.services.aerolinea.AerolineaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

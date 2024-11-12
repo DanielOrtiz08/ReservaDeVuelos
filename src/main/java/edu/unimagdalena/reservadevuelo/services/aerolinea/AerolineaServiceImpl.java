@@ -1,22 +1,19 @@
-package edu.unimagdalena.reservadevuelo.services;
+package edu.unimagdalena.reservadevuelo.services.aerolinea;
 
 import edu.unimagdalena.reservadevuelo.dto.AerolineaDto;
 import edu.unimagdalena.reservadevuelo.entities.Aerolinea;
 import edu.unimagdalena.reservadevuelo.mappers.AerolineaMapper;
 import edu.unimagdalena.reservadevuelo.repositories.AerolineaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AerolineaServiceImpl implements AerolineaService {
-
-    private AerolineaRepository aerolineaRepository;
-
-    public AerolineaServiceImpl(AerolineaRepository aerolineaRepository) {
-        this.aerolineaRepository = aerolineaRepository;
-    }
+    private final AerolineaRepository aerolineaRepository;
 
     @Override
     public AerolineaDto guardarAerolinea(AerolineaDto aerolineaDto) {
