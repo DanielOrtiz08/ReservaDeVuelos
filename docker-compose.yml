@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  vuelos-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - vuelos-net
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    depends_on:
+      - vuelos-db
+  vuelos-db:
+    image: postgres:15.2
+    restart: unless-stopped
+    networks:
+        - vuelos-net
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: vuelos_db
+
+networks:
+  vuelos-net:
+    driver: bridge

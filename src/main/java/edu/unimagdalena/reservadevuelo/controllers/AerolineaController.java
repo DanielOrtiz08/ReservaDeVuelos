@@ -37,7 +37,7 @@ public class AerolineaController {
                 .findAny().orElseThrow(() -> new ResourceNotFoundException("Aerolínea con nombre " + name + " no encontrada."));
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<AerolineaDto> createAerolinea(@RequestBody AerolineaDto aerolineaDto) {
         if (aerolineaDto.codigoAerolinea() == null)
             return ResponseEntity.badRequest().build();
